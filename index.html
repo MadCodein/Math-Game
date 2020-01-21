@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel='stylesheet', href='sweetalert2.min.css'>
+    <script src="sweetalert2.min.js"></script>
+</head>
+<body>
+    <h1>Multiplication Game</h1>
+    <h3>What is the answer?</h3>
+    <div>
+        <p>
+            <span id="question"></span>
+            *
+            <span id="question2"></span>
+            =
+        </p>
+        <form name="calc" method='post' onsubmit="return checkForm(this);">
+            <input type="text" name="input">
+            <button type="submit" id='submit' onclick="return myFunction();">Submit</button>
+        </form>
+        
+        <button onClick="window.location.reload();" id="secondButton">Try Again</button>
+    </div>
+
+
+    <script>
+        //generate random numbers
+        var a = Math.random() * 12;
+        var b = Math.random() * 10;
+        var answer = (Math.round(a)) * (Math.round(b));
+        
+        var userInput;
+        document.getElementById('secondButton').style.visibility = "hidden";
+
+        // show the numbers to the player
+        document.getElementById("question").innerHTML = Math.round(a);
+        document.getElementById("question2").innerHTML = Math.round(b);
+        
+        function checkForm(form){
+           //get the user's input
+           userInput = form.input.value;
+
+           if(userInput != answer){
+            document.getElementById('submit').style.visibility = "hidden";
+            document.getElementById('secondButton').style.visibility = "initial";
+
+            Swal.fire({
+                position: 'center',
+                type: 'error',
+                title: 'Your Answer Is Wrong',
+                showConfirmButton: false,
+                timer: 1500
+            })
+                return false;
+            }else{
+
+                document.getElementById('submit').style.visibility = "hidden";
+                document.getElementById('secondButton').innerHTML = "Next Question";
+                document.getElementById('secondButton').style.visibility = "initial";
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Correct Answer',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                return false;
+            }
+           }
+    </script>
+</body>
+</html>
